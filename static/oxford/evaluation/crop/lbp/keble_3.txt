@@ -1,0 +1,10 @@
+oxford_000540
+new_000023
+oxford_002837
+bodleian_000438
+oxford_001214
+ashmolean_000304
+ashmolean_000106
+oriel_000052
+magdalen_000719
+christ_church_000549
