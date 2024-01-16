@@ -6,16 +6,15 @@ def compute_AP(pos_set, ranked_list):
     relevant = 0.0
     average_precision = 0.0
     number_retrieve = 0
-
     for item in ranked_list:
-
         number_retrieve += 1
         if item not in pos_set:
             continue
         
         relevant += 1
         average_precision += (relevant/number_retrieve)
-
+    if relevant == 0:
+        return 0.0
     return average_precision / relevant
 
 def compute_mAP(root_groundtruth, root_evaluation, feature_extractor, crop = False):
@@ -25,7 +24,6 @@ def compute_mAP(root_groundtruth, root_evaluation, feature_extractor, crop = Fal
         path_evaluation = root_evaluation + '/original'
 
     path_evaluation += ('/' + feature_extractor)
-
     AP = 0.0
     number_query = 0.0
 
@@ -40,7 +38,6 @@ def compute_mAP(root_groundtruth, root_evaluation, feature_extractor, crop = Fal
 
         with open(path_evaluation + '/' + query) as file:
             ranked_list = file.read().split('\n')
-        
         AP += compute_AP(pos_set, ranked_list)
         number_query += 1
     
@@ -52,16 +49,18 @@ ACCEPTED_IMAGE_EXTS = ['.jpg', '.png']
 def main():
 
     parser = ArgumentParser()
-    parser.add_argument("--feature_extractor", required=True, type=str, default='Resnet50')
+    parser.add_argument("--feature_extractor", required=True, type=str, default='resnet50')
     parser.add_argument("--crop", required=False, type=bool, default=False)
     parser.add_argument('-gt', '--gt_path', required=True, type=str)
+    parser.add_argument('--evaluate_path', required=True, type=str)
     print('Start evaluating .......')
     start = time.time()
 
     args = parser.parse_args()
     gt_path = args.gt_path
+    evaluate_path = args.evaluate_path
 
-    MAP = compute_mAP(gt_path, args.feature_extractor, args.crop)
+    MAP = compute_mAP(gt_path, evaluate_path, args.feature_extractor, args.crop)
 
     print(MAP)
 

@@ -8,9 +8,26 @@ import torchvision.models as models
 
 from skimage.feature import local_binary_pattern
 
-# class MyEfficentNetV2(torch.nn.module):
-#     def __init__(self, device):
-#         super()
+class MyEfficentNetV2(torch.nn.Module):
+    def __init__(self, device):
+        super().__init__()
+        self.model = models.efficientnet_v2_s(weights='IMAGENET1K_V1')
+        self.model = self.model.eval()
+        self.model = self.model.to(device)
+        self.shape = 1280
+    
+    def extract_features(self, image):
+        transform = transforms.Compose([transforms.Normalize(mean=[0.485, 0.456, 0.406], 
+                                                            std=[0.229, 0.224, 0.225])])
+        image = transform(image)
+
+        # Pass the image through the Resnet50 model and get the feature maps of the input image
+        with torch.no_grad():
+            feature = self.model(image)
+            feature = torch.flatten(feature, start_dim=1)
+
+        # Return features to numpy array
+        return feature.cpu().detach().numpy()
 
 
 class MyResnet50(torch.nn.Module):
@@ -86,30 +103,4 @@ class RGBHistogram():
             feature_vector = np.concatenate((hist_red, hist_green, hist_blue))
             feature_vector.resize(len(feature_vector))
             features.append(feature_vector)
-        return np.array(features)
-
-class LBP():
-    def __init__(self, device):
-        self.shape = 26 # the length of the feature vector
-
-    def extract_features(self, image):
-        n_points = 24
-        radius = 3
-
-        image = image.cpu().numpy()
-        features = []
-        for img in image:
-            # Convert to format when reading images from CV2
-            img *= 255
-            img = img.reshape(img.shape[1], img.shape[2], img.shape[0])
-
-            # Convert to grayscale
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            lbp = local_binary_pattern(gray, n_points, radius, method="default")
-            hist, _ = np.histogram(lbp.ravel(), bins=np.arange(0, n_points + 3), range=(0, n_points + 2))
-            hist = hist.astype("float32")
-            hist /= (hist.sum() + 1e-7)
-
-            features.append(hist)
-
         return np.array(features)

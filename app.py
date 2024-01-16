@@ -32,8 +32,6 @@ def retrieve_image(img, feature_extractor, feature_root):
         extractor = MyResnet50(device)
     elif (feature_extractor == 'rgbhistogram'):
         extractor = RGBHistogram(device)
-    elif (feature_extractor == 'lbp'):
-        extractor = LBP(device)
 
     transform = get_transformation()
 
