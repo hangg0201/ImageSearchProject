@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content-Based Image Retrieval</title>
+  </head>
+  <body>
+    <h1>Content-Based Image Retrieval</h1>
+    <form method="post" enctype="multipart/form-data">
+      <label for="feature_extractor">Choose feature extractor:</label>
+      <select name="feature_extractor">
+        <option value="resnet50">Resnet50</option>
+        <option value="vgg16">VGG16</option>
+        <option value="rgbhistogram">RGBHistogram</option>
+        <option value="lbp">LBP</option>
+      </select>
+      <br />
+      <label for="img_file">Upload image:</label>
+      <input type="file" name="img_file" accept=".png, .jpg" />
+      <br />
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
