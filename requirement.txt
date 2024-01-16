@@ -1,2 +1,5 @@
 opencv-python
 scikit-image
+faiss-cpu
+faiss-gpu
+flask

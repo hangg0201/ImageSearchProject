@@ -8,9 +8,9 @@ import torchvision.models as models
 
 from skimage.feature import local_binary_pattern
 
-class MyEfficentNetV2(torch.nn.module):
-    def __init__(self, device):
-        super()
+# class MyEfficentNetV2(torch.nn.module):
+#     def __init__(self, device):
+#         super()
 
 
 class MyResnet50(torch.nn.Module):
