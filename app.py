@@ -5,7 +5,7 @@ import os
 import pathlib
 from PIL import Image
 from flask import Flask, render_template, request
-from src.feature_extraction import MyVGG16, MyResnet50, RGBHistogram, LBP
+from src.feature_extraction import MyVGG16, MyResnet50, RGBHistogram, LBP, MyViT
 from src.dataloader import get_transformation
 
 UPLOAD_FOLDER = './'
@@ -32,7 +32,10 @@ def retrieve_image(img, feature_extractor, feature_root):
         extractor = MyResnet50(device)
     elif (feature_extractor == 'rgbhistogram'):
         extractor = RGBHistogram(device)
-
+    elif (feature_extractor == 'lbp'):
+        extractor = LBP(device)
+    elif (feature_extractor == 'vit'):
+        extractor = MyViT(device)
     transform = get_transformation()
 
     img = img.convert('RGB')
@@ -70,7 +73,6 @@ def index():
         for i in range(11):
             path = str(image_list[retriev[i]])
             res_path.append(path)
-        print(res_path)
         return render_template('result.html', PATHS=res_path)
 
     return render_template('index.html')

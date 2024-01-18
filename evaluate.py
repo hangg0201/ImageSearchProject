@@ -51,14 +51,14 @@ def main():
     parser = ArgumentParser()
     parser.add_argument("--feature_extractor", required=True, type=str, default='resnet50')
     parser.add_argument("--crop", required=False, type=bool, default=False)
-    parser.add_argument('-gt', '--gt_path', required=True, type=str)
-    parser.add_argument('--evaluate_path', required=True, type=str)
+    parser.add_argument('--data_path', required=True, type=str)
     print('Start evaluating .......')
     start = time.time()
 
     args = parser.parse_args()
-    gt_path = args.gt_path
-    evaluate_path = args.evaluate_path
+    data_path = args.data_path
+    gt_path = os.path.join(data_path, 'groundtruth')
+    evaluate_path = os.path.join(data_path, 'evaluation')
 
     MAP = compute_mAP(gt_path, evaluate_path, args.feature_extractor, args.crop)
 

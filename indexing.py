@@ -6,7 +6,7 @@ import faiss
 import torch
 from torch.utils.data import DataLoader, SequentialSampler
 
-from src.feature_extraction import MyResnet50, MyVGG16, RGBHistogram, MyViT
+from src.feature_extraction import MyResnet50, MyVGG16, RGBHistogram, MyViT, LBP
 from src.indexing import get_faiss_indexer
 from src.dataloader import MyDataLoader
 
@@ -37,6 +37,8 @@ def main():
         extractor = RGBHistogram(device)
     elif args.feature_extractor == 'vit':
         extractor = MyViT(device)
+    elif args.feature_extractor == 'lbp':
+        extractor = LBP(device)
     else:
         print("No matching model found!")
         return
