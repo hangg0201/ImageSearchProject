@@ -42,8 +42,10 @@ ImageSearchProject
 | | | ├── crop
 | | | ├── original
 | | ├── groundtruth
-| | └── image
-| | └── ...
+| | ├── image
+| | | ├── all_souls_000000.jpg
+| | | ├── all_souls_000001.jpg
+| | | └── ...
 | ├── paris
 | | ├── feature
 | | | ├── LBP.index.bin
