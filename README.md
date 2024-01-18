@@ -84,7 +84,7 @@ python evaluation --data_path static/oxford --feature_extractor resnet50
 
 ## Running demo
 
-- Using _flask_ to build web
+- Using **flask** to build web
 - Running command line below to start:
 
 ```
