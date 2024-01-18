@@ -19,7 +19,9 @@ conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvi
 
 3. Install the necessary dependencies by running:
 
+```
 pip install -r requirements.txt
+```
 
 ### Preparing datasets
 
